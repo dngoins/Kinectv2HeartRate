@@ -1,0 +1,54 @@
+﻿<Window x:Class="KinectHeartRateResearch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KinectHeartRateResearch"
+        mc:Ignorable="d"
+        Title="MainWindow" Loaded="Window_Loaded" Unloaded="Window_Unloaded" >
+    <Window.Resources>
+        <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
+        <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />
+        <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2" />
+    </Window.Resources>
+
+    <Grid Background="White" Margin="10 0 10 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image Source="Images/Logo.png" Stretch="Fill" Height="32" Width="81" Margin="10 10 0 5" 
+               Grid.Row="0" HorizontalAlignment="Left"/>
+        <Image Source="Images/Status.png" Stretch="None" HorizontalAlignment="Center" 
+               Margin="0 0 0 5" Grid.Row="0"/>
+        <TextBlock Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18"
+               Grid.Row="0">Kinect Heart Rate Research</TextBlock>
+        <StackPanel Grid.Row="1" Height="800" Orientation="Horizontal">
+            <StackPanel Width="200">
+                <TextBlock  Margin="10" HorizontalAlignment="Left" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="20"  TextWrapping="Wrap" >Status:</TextBlock>
+                <Border >
+                    <TextBlock x:Name="lblColorFeeds" Height="200" Width="180" Margin="10" HorizontalAlignment="Left" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="13.333" TextWrapping="Wrap"></TextBlock>
+
+                </Border>
+                <TextBlock x:Name="timeRemaining" Margin="10" HorizontalAlignment="Left" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="13" Text="{Binding CountdownText}" TextWrapping="Wrap"></TextBlock>                
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Border Margin="10" Background="AliceBlue" BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="imgKinectView" Height="500" Width="800" Stretch="UniformToFill" />
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Margin="10">
+            <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource KinectBlueBrush}" FontSize="20" />
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Button x:Name="btnCalculateRate" Click="btnCalculateRate_Click">Calculate Rate</Button>
+                <TextBlock Text="Heart Rate (bpm): " Foreground="{StaticResource KinectBlueBrush}" FontSize="20" />
+                <TextBlock x:Name="lblRate" VerticalAlignment="Center" Foreground="{StaticResource KinectBlueBrush}" FontSize="24" FontStyle="Oblique" />
+                <Canvas Width="100" x:Name="rateColor"></Canvas>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
