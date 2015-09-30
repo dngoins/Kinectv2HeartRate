@@ -83,8 +83,12 @@ namespace KinectHeartRateResearch
             var currentDir = System.Environment.CurrentDirectory.Replace('\\', '/');
             if (!m_JADE_Loaded)
             {
-                engine.Evaluate("install.packages('JADE', repos='http://cran.rstudio.com/bin/windows/contrib/3.2/JADE_1.9-92.zip'");
-                engine.Evaluate("library(JADE)");
+               
+                engine.Evaluate("install.packages('JADE', repos='http://cran.us.r-project.org')");
+
+                //repos ='https://cran.rstudio.com/bin/windows/contrib/3.2/JADE_1.9-93.zip')");
+
+                engine.Evaluate("library('JADE')");
                 m_JADE_Loaded = true;
             }
             
@@ -146,16 +150,39 @@ namespace KinectHeartRateResearch
             engine.Evaluate(string.Format("heartRateData <- read.csv('{0}')", m_filePath.Replace('\\', '/')));
 #endif
                 engine.Evaluate(string.Format("source('{0}/RScripts/KinectHeartRate_JADE.r')", currentDir));
-                NumericVector hrVect1 = engine.GetSymbol("hr1").AsNumeric();
-                NumericVector hrVect4 = engine.GetSymbol("hr4").AsNumeric();
-                double hr1 = hrVect1.First();
+
+            //HR1 and HR4 are band filtered to match frequency of normal heart rate range
+            //HR2 and HR3 are not and included incase your environment has closer matches to these frequencies which were seperated
+            NumericVector hrVect1 = engine.GetSymbol("hr1").AsNumeric();            
+            NumericVector hrVect4 = engine.GetSymbol("hr4").AsNumeric();
+
+            //In case your environment matches closer
+            NumericVector hrVect2 = engine.GetSymbol("hr2").AsNumeric();
+            NumericVector hrVect3 = engine.GetSymbol("hr3").AsNumeric();
+
+            double hr1 = hrVect1.First();
                 double hr4 = hrVect4.First();
+
+            //incase you need these seperated frequencies
+            double hr2 = hrVect2.First();
+            double hr3 = hrVect3.First();
 
                 double hr = (hr1 > hr4) ? hr1 : hr4;
                 lblRate.Text = ((int)hr).ToString();
                 lblColorFeeds.Text = "Signal processed.";
-            System.IO.File.Delete(m_filePath);
 
+            bool? isChecked = keepResults.IsChecked;
+            if (!isChecked.HasValue)
+            { 
+                System.IO.File.Delete(m_filePath);
+            }
+            else
+            {
+                if(!isChecked.Value )
+                {
+                    System.IO.File.Delete(m_filePath);
+                }
+            }
 
         }
 

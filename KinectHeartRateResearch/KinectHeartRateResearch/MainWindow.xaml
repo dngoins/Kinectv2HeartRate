@@ -45,9 +45,11 @@
             <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource KinectBlueBrush}" FontSize="20" />
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Button x:Name="btnCalculateRate" Click="btnCalculateRate_Click">Calculate Rate</Button>
-                <TextBlock Text="Heart Rate (bpm): " Foreground="{StaticResource KinectBlueBrush}" FontSize="20" />
+                
+                <TextBlock Margin="5" Text="Heart Rate (bpm): " Foreground="{StaticResource KinectBlueBrush}" FontSize="18" />
                 <TextBlock x:Name="lblRate" VerticalAlignment="Center" Foreground="{StaticResource KinectBlueBrush}" FontSize="24" FontStyle="Oblique" />
                 <Canvas Width="100" x:Name="rateColor"></Canvas>
+                <CheckBox x:Name="keepResults" Margin="5" Foreground="{StaticResource KinectBlueBrush}" FontSize="18" >Keep Recorded Data</CheckBox>
             </StackPanel>
         </StackPanel>
     </Grid>
