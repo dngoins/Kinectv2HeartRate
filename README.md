@@ -1,7 +1,7 @@
 # Kinectv2HeartRate
 Kinect for Windows v2 Heart Rate Library
 
-![](http://en.zimagez.com/full/0775a709c73513eb817defaa1cf6b754d01df714f6ba04b42bc5f8d7bd1eb8f890dba8cede3eaae36e1d25cff0a8de99.php)
+![](http://i.imgur.com/yjU9wh7.jpg)
 
 This application is a .Net WPF application which uses the R Statistical programming language engine version > 3.12. This application requires the R engine to be installed on the system running the application. R can be installed from here: http://cran.r-project.org/ The WPF application utilizes the Kinect RGB, IR, and Face streams of data to determine a region around the face and calculate a spatially averaged brightness over time. The averaged values are then divided by their respective standard deviations to provide a unit variance value. These values are required for feeding into ICA algorithms. The values are saved into a csv file for processsing with other Machine Learning techniques and algorithms.
 
